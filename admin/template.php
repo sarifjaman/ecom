@@ -1,3 +1,11 @@
+<?php
+include('class/adminBack.php');
+session_start();
+$adminId = $_SESSION['id'];
+if ($adminId == null) {
+    header('location:index.php');
+}
+?>
 <?php include('includes/head.php'); ?>
 
 <body>
@@ -32,7 +40,21 @@
                                     <div class="page-body">
                                         <div class="row">
 
-                                            <?php include('views/dashboard-view.php'); ?>
+                                            <?php
+                                            if ($views == TRUE) {
+                                                if ($views == "dashboard") {
+                                                    include("views/dashboard-view.php");
+                                                } elseif ($views == "add-product") {
+                                                    include("views/add-product-view.php");
+                                                } elseif ($views == "manage-product") {
+                                                    include("views/manage-product-view.php");
+                                                } elseif ($views == "add-category") {
+                                                    include("views/add-category-view.php");
+                                                } elseif ($views == "manage-category") {
+                                                    include("views/manage-category-view.php");
+                                                }
+                                            }
+                                            ?>
 
                                         </div>
                                     </div>
