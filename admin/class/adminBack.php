@@ -75,4 +75,16 @@ class adminBack
             return $query;
         }
     }
+
+    function cat_publish($id)
+    {
+        $sql = "UPDATE category SET ctg_status=1 WHERE ctg_id=$id";
+        mysqli_query($this->conn, $sql);
+    }
+
+    function cat_unpublish($id)
+    {
+        $sql = "UPDATE category SET ctg_status=0 WHERE ctg_id=$id";
+        mysqli_query($this->conn, $sql);
+    }
 }
