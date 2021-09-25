@@ -2,8 +2,13 @@
 include('class/adminBack.php');
 session_start();
 $adminId = $_SESSION['id'];
+$adminEmail = $_SESSION['adminEmail'];
 if ($adminId == null) {
     header('location:index.php');
+}
+if (isset($_GET['adminLogout'])) {
+    $obj_adminback = new adminBack();
+    $obj_adminback->adminlogout();
 }
 ?>
 <?php include('includes/head.php'); ?>
@@ -38,26 +43,25 @@ if ($adminId == null) {
                                 <div class="page-wrapper">
 
                                     <div class="page-body">
-                                        <div class="row">
 
-                                            <?php
-                                            if ($views == TRUE) {
-                                                if ($views == "dashboard") {
-                                                    include("views/dashboard-view.php");
-                                                } elseif ($views == "add-product") {
-                                                    include("views/add-product-view.php");
-                                                } elseif ($views == "manage-product") {
-                                                    include("views/manage-product-view.php");
-                                                } elseif ($views == "add-category") {
-                                                    include("views/add-category-view.php");
-                                                } elseif ($views == "manage-category") {
-                                                    include("views/manage-category-view.php");
-                                                }
+
+                                        <?php
+                                        if ($views == TRUE) {
+                                            if ($views == "dashboard") {
+                                                include("views/dashboard-view.php");
+                                            } elseif ($views == "add-product") {
+                                                include("views/add-product-view.php");
+                                            } elseif ($views == "manage-product") {
+                                                include("views/manage-product-view.php");
+                                            } elseif ($views == "add-category") {
+                                                include("views/add-category-view.php");
+                                            } elseif ($views == "manage-category") {
+                                                include("views/manage-category-view.php");
                                             }
-                                            ?>
-
-                                        </div>
+                                        }
+                                        ?>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -65,6 +69,7 @@ if ($adminId == null) {
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
