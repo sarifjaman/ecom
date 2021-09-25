@@ -8,11 +8,19 @@ if (isset($_GET['status'])) {
         $obj_adminback->cat_unpublish($get_id);
     } elseif ($_GET['status'] == 'published') {
         $obj_adminback->cat_publish($get_id);
+    } elseif ($_GET['status'] == 'delete') {
+        $msg = $obj_adminback->cat_delete($get_id);
     }
 }
 ?>
 
 <h2>Manage Category</h2><br>
+
+<?php
+if (isset($msg)) {
+    echo $msg;
+}
+?>
 
 <?php
 if ($count = mysqli_num_rows($dis_cat)) {
@@ -53,7 +61,7 @@ if ($count = mysqli_num_rows($dis_cat)) {
 
         echo "<td>
         <a href='' class='btn btn-success'>Update</a>
-        <a href='' class='btn btn-danger'>Delete</a>
+        <a href='?status=delete&&id=$id' class='btn btn-danger'>Delete</a>
         </td>";
 
         echo "</tr>";
