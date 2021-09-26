@@ -60,7 +60,7 @@ if ($count = mysqli_num_rows($dis_cat)) {
         echo "</td>";
 
         echo "<td>
-        <a href='' class='btn btn-success'>Update</a>
+        <a href='edit-category.php?status=edit&&id=$id' class='btn btn-success'>Update</a>
         <a href='?status=delete&&id=$id' class='btn btn-danger'>Delete</a>
         </td>";
 

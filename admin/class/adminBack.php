@@ -99,4 +99,30 @@ class adminBack
             return $msg;
         }
     }
+
+    function BupdatePageShow($id)
+    {
+        $sql = "SELECT * FROM category WHERE ctg_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            $rows = mysqli_fetch_assoc($query);
+            return $rows;
+        }
+    }
+
+    function updateCategory($data)
+    {
+        $ctg_name = $data['up_ctg_name'];
+        $ctg_des = $data['up_ctg_des'];
+        $ctg_id = $data['up_ctg_id'];
+
+        $sql = "UPDATE category SET ctg_name='$ctg_name',ctg_des='$ctg_des' WHERE ctg_id=$ctg_id";
+        if (mysqli_query($this->conn, $sql)) {
+            $msg = "<p class='success-msg'>Category updated successfully.</p>";
+            return $msg;
+        } else {
+            $msg = "<p class='err-msg'>Failed to updated category.</p>";
+            return $msg;
+        }
+    }
 }
