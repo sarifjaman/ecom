@@ -12,6 +12,7 @@ if (isset($_GET['status'])) {
         $msg = $obj_adminback->cat_delete($get_id);
     }
 }
+
 ?>
 
 <h2>Manage Category</h2><br>
