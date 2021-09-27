@@ -132,10 +132,12 @@ class adminBack
         $pdt_price = $data['pdt_price'];
         $pdt_des = $data['pdt_des'];
         $pdt_ctg = $data['pdt-ctg'];
+        //image file path
         $pdt_image_name = $_FILES['pdt_image']['name'];
         $pdt_tmp_file = $_FILES['pdt_image']['tmp_name'];
         $pdt_image_size = $_FILES['pdt_image']['size'];
         $pdt_ext = pathinfo($pdt_image_name, PATHINFO_EXTENSION);
+
         $pdt_status = $data['pdt_status'];
 
         if ($pdt_ext == "jpg" or $pdt_ext == "JPG" or $pdt_ext == "jpeg" or $pdt_ext == "JPEG" or $pdt_ext == "png" or $pdt_ext == "PNG" or $pdt_ext == "gif" or $pdt_ext == "GIF") {
@@ -153,6 +155,15 @@ class adminBack
         } else {
             $msg = "<p class='err-msg'>Your file must be a JPG or JPEG or png or gif file.</p>";
             return $msg;
+        }
+    }
+
+    function display_product()
+    {
+        $sql = "SELECT * FROM product_info_ctg";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            return $query;
         }
     }
 }
