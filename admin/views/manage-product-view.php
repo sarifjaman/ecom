@@ -1,10 +1,23 @@
 <?php
 $obj_adminback = new adminBack();
 $ret_query = $obj_adminback->display_product();
+
+if (isset($_GET['prostatus'])) {
+    $get_id = $_GET['id'];
+    if ($_GET['prostatus'] == 'delete') {
+        $ret_msg = $obj_adminback->delete_product($get_id);
+    }
+}
 ?>
 
 <h2>Manage Product</h2>
 <br>
+
+<?php
+if (isset($ret_msg)) {
+    echo $ret_msg;
+}
+?>
 
 <?php
 $count = mysqli_num_rows($ret_query);
@@ -47,10 +60,17 @@ if ($count > 0) {
         }
         echo "</td>";
 
-        echo "<td>" . $rows['pdt_status'] . "</td>";
+        echo "<td>";
+        if ($rows['pdt_status'] == 1) {
+            echo "<p class='success-msg'>Published</p>";
+        } else {
+            echo "<p class='err-msg'>Unpublished</p>";
+        }
+        echo "</td>";
+
         echo "<td>
         <a href='' class='btn btn-primary'>Update</a>
-        <a href='' class='btn btn-danger'>Delete</a>
+        <a href='?prostatus=delete&&id=$id' class='btn btn-danger'>Delete</a>
         </td>";
         echo "</tr>";
         echo "</tbody>";

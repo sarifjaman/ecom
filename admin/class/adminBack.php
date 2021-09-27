@@ -166,4 +166,16 @@ class adminBack
             return $query;
         }
     }
+
+    function delete_product($id)
+    {
+        $sql = "DELETE FROM product WHERE pdt_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $msg = "<p class='success-msg'>Product deleted successfully.</p>";
+            return $msg;
+        } else {
+            $msg = "<p class='err-msg'>Failed to product deleted.</p>";
+            return $msg;
+        }
+    }
 }
