@@ -69,7 +69,7 @@ if ($count > 0) {
         echo "</td>";
 
         echo "<td>
-        <a href='' class='btn btn-primary'>Update</a>
+        <a href='edit-product.php?prostatus=edit&&id=$id' class='btn btn-primary'>Update</a>
         <a href='?prostatus=delete&&id=$id' class='btn btn-danger'>Delete</a>
         </td>";
         echo "</tr>";

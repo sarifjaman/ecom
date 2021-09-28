@@ -178,4 +178,56 @@ class adminBack
             return $msg;
         }
     }
+
+    function geteditProduct_info($id)
+    {
+        $sql = "SELECT * FROM product_info_ctg WHERE pdt_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            $res = mysqli_fetch_assoc($query);
+            return $res;
+        }
+    }
+
+    function update_product($data)
+    {
+        $up_pdt_id = $data['up_pdt_id'];
+        $up_pdt_name = $data['up_pdt_name'];
+        $up_pdt_price = $data['up_pdt_price'];
+        $up_pdt_des = $data['up_pdt_price'];
+        $up_pdt_ctg = $data['up_pdt-ctg'];
+        $up_image_name = $_FILES['up_pdt_image']['name'];
+        $up_image_size = $_FILES['up_pdt_image']['size'];
+        $up_pdt_tmp_image = $_FILES['up_pdt_image']['tmp_name'];
+        $up_image_ext = pathinfo($up_image_name, PATHINFO_EXTENSION);
+        $up_pdt_status = $data['up_pdt_status'];
+
+        if ($up_image_ext == "jpg" or  $up_image_ext == "JPG" or  $up_image_ext == "png" or  $up_image_ext == "PNG" or  $up_image_ext == "jpeg" or  $up_image_ext == "JPEG") {
+            if ($up_image_size <= 3145728) {
+                $sql = "UPDATE product SET
+                 pdt_name='$up_pdt_name',
+                 pdt_price=$up_pdt_price,
+                 pdt_des='$up_pdt_des',
+                 pdt_ctg='$up_pdt_ctg',
+                 pdt_image='$up_image_name',
+                 pdt_status=$up_pdt_status
+                  WHERE pdt_id=$up_pdt_id";
+                if (mysqli_query($this->conn, $sql)) {
+                    move_uploaded_file($up_pdt_tmp_image, 'upload/' . $up_image_name);
+                    $msg = "<p class='success-msg'>Product updated successfully.</p>";
+                    return $msg;
+                }
+                // else {
+                //     $msg = "<p class='err-msg'>Failed to update product.</p>";
+                //     return $msg;
+                // }
+            } else {
+                $msg = "<p class='err-msg'>Your file size should be less or equal 3 MB.</p>";
+                return $msg;
+            }
+        } else {
+            $msg = "<p class='err-msg'>Your file must be a JPG or JPEG or png or gif file.</p>";
+            return $msg;
+        }
+    }
 }
