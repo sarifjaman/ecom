@@ -1,6 +1,6 @@
 <?php
 $obj_adminback = new adminBack();
-$res = $obj_adminback->display_category();
+$res = $obj_adminback->p_display_category();
 
 if (isset($_POST['pdt_btn'])) {
     $ret_msg = $obj_adminback->add_product($_POST);

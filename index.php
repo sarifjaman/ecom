@@ -1,3 +1,12 @@
+<?php include("admin/class/adminBack.php");
+$obj = new adminBack();
+$ctg = $obj->p_display_category();
+$ctgDatas = array();
+while ($data = mysqli_fetch_assoc($ctg)) {
+    $ctgDatas[] = $data;
+}
+?>
+
 <?php include_once("include/head.php"); ?>
 
 <body class="biolife-body">

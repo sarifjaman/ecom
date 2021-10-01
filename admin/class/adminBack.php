@@ -76,6 +76,15 @@ class adminBack
         }
     }
 
+    function p_display_category()
+    {
+        $sql = "SELECT * FROM category WHERE ctg_status=1";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            return $query;
+        }
+    }
+
     function cat_publish($id)
     {
         $sql = "UPDATE category SET ctg_status=1 WHERE ctg_id=$id";
@@ -228,6 +237,24 @@ class adminBack
         } else {
             $msg = "<p class='err-msg'>Your file must be a JPG or JPEG or png or gif file.</p>";
             return $msg;
+        }
+    }
+
+    function product_by_ctg($id)
+    {
+        $sql = "SELECT * FROM product_info_ctg WHERE ctg_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $proinfo = mysqli_query($this->conn, $sql);
+            return $proinfo;
+        }
+    }
+
+    function product_by_id($id)
+    {
+        $sql = "SELECT * FROM product_info_ctg WHERE pdt_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $proinfo = mysqli_query($this->conn, $sql);
+            return $proinfo;
         }
     }
 }
