@@ -311,4 +311,28 @@ class adminBack
             }
         }
     }
+
+    function user_login($data)
+    {
+        $user_email = $data['useremail'];
+        $user_pass = md5($data['user_pass']);
+
+        $sql = "SELECT * FROM users WHERE user_email='$user_email' AND user_password='$user_pass'";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            $rows = mysqli_fetch_assoc($query);
+
+            if ($rows) {
+                header("location:user_profile.php");
+                session_start();
+                $_SESSION['id'] = $rows['user_id'];
+                $_SESSION['email'] = $rows['user_email'];
+                $_SESSION['name'] = $rows['user_name'];
+                $_SESSION['pass'] = $rows['user_password'];
+            } else {
+                $msg = "<p class='err-msg'>Your email or password is incorrect!</p>";
+                return $msg;
+            }
+        }
+    }
 }
