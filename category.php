@@ -11,8 +11,16 @@ if (isset($_GET['status'])) {
     if ($_GET['status'] == 'catview') {
         $prodatas = $obj->product_by_ctg($catid);
         $pros = array();
-        $prodata = mysqli_fetch_assoc($prodatas);
-        $pros[] = $prodata;
+        while ($prodata = mysqli_fetch_assoc($prodatas)) {
+            $pros[] = $prodata;
+        }
+    }
+}
+
+if (isset($_GET['status'])) {
+    $get_id = $_GET['id'];
+    if ($_GET['status'] == "catview") {
+        $ret_data = $obj->ctg_by_id($get_id);
     }
 }
 ?>
@@ -37,9 +45,7 @@ if (isset($_GET['status'])) {
         <div id="main-content" class="main-content">
             <!--Hero Section-->
             <div class="hero-section hero-background">
-                <h1 class="page-title"><?php foreach ($pros as $pro) {
-                                            echo $pro['ctg_name'];
-                                        } ?></h1>
+                <h1 class="page-title"><?php echo $ret_data['ctg_name']; ?></h1>
             </div>
 
             <!--Navigation section-->
@@ -47,9 +53,7 @@ if (isset($_GET['status'])) {
                 <nav class="biolife-nav">
                     <ul>
                         <li class="nav-item"><a href="index.php" class="permal-link">Home</a></li>
-                        <li class="nav-item"><span class="current-page"><?php foreach ($pros as $pro) {
-                                                                            echo $pro['ctg_name'];
-                                                                        } ?></span></li>
+                        <li class="nav-item"><span class="current-page"><?php echo $ret_data['ctg_name']; ?></span></li>
                     </ul>
                 </nav>
             </div>

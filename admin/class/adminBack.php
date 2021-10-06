@@ -257,4 +257,58 @@ class adminBack
             return $proinfo;
         }
     }
+
+    function related_product($id)
+    {
+        $sql = "SELECT * FROM product_info_ctg WHERE ctg_id=$id ORDER BY pdt_id DESC LIMIT 3";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            return $query;
+        }
+    }
+
+    function ctg_by_id($id)
+    {
+        $sql = "SELECT * FROM product_info_ctg WHERE ctg_id=$id";
+        if (mysqli_query($this->conn, $sql)) {
+            $query = mysqli_query($this->conn, $sql);
+            $data_fetch = mysqli_fetch_assoc($query);
+            return $data_fetch;
+        }
+    }
+
+    function user_register($data)
+    {
+        $username = $data['username'];
+        $user_firstname = $data['user_firstname'];
+        $user_lastname = $data['user_lastname'];
+        $useremail = $data['useremail'];
+        $phonenumber = $data['phonenumber'];
+        $user_pass = md5($data['user_pass']);
+        $user_rules = $data['user_rules'];
+
+        $err_match_data = "SELECT * FROM users WHERE user_name='$username' OR user_email='$useremail'";
+        $sent_data = mysqli_query($this->conn, $err_match_data);
+        $count = mysqli_num_rows($sent_data);
+
+        if ($count == 1) {
+            $msg = "<p class='err-msg'>This Username or Email Address Already Exists!</p>";
+            return $msg;
+        } else {
+            if (strlen($phonenumber) < 11 or strlen($phonenumber) > 11) {
+                $msg = "<p class='err-msg'>Your mobile number should not be less than 11 or greater than 11.</p>";
+                return $msg;
+            } else {
+                $sql = "INSERT INTO users(user_name,user_firstname,user_lastname,user_email,user_password,user_mobile,user_rules)VALUES('$username','$user_firstname','$user_lastname','$useremail','$user_pass',$phonenumber,$user_rules)";
+
+                if (mysqli_query($this->conn, $sql)) {
+                    $msg = "<p class='success-msg'>Your account successfully registered!</p>";
+                    return $msg;
+                } else {
+                    $msg = "<p class='err-msg'>Failed to registered!</p>";
+                    return $msg;
+                }
+            }
+        }
+    }
 }
