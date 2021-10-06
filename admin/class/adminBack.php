@@ -325,7 +325,7 @@ class adminBack
             if ($rows) {
                 header("location:user_profile.php");
                 session_start();
-                $_SESSION['id'] = $rows['user_id'];
+                $_SESSION['user_id'] = $rows['user_id'];
                 $_SESSION['email'] = $rows['user_email'];
                 $_SESSION['name'] = $rows['user_name'];
                 $_SESSION['pass'] = $rows['user_password'];
@@ -334,5 +334,14 @@ class adminBack
                 return $msg;
             }
         }
+    }
+
+    function user_logout()
+    {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['email']);
+        unset($_SESSION['name']);
+        unset($_SESSION['pass']);
+        header("location:user_login.php");
     }
 }

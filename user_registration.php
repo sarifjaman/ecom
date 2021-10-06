@@ -1,4 +1,6 @@
-<?php include("admin/class/adminBack.php");
+<?php
+session_start();
+include("admin/class/adminBack.php");
 $obj = new adminBack();
 $ctg = $obj->p_display_category();
 $ctgDatas = array();
@@ -8,6 +10,13 @@ while ($data = mysqli_fetch_assoc($ctg)) {
 
 if (isset($_POST['user_register_btn'])) {
     $ret_msg = $obj->user_register($_POST);
+}
+
+if (isset($_SESSION['user_id'])) {
+    $userid = $_SESSION['user_id'];
+    if ($userid) {
+        header("location:user_profile.php");
+    }
 }
 ?>
 
